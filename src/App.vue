@@ -1,8 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
-      <pokeCard v-for="pokemon in pokemonCollection" :key="pokemon.id" :id="pokemon.id" :name="pokemon.name"
-        :primary-type="pokemon.type[0]" :secondary-type="pokemon.type[1]" :poke-image="pokemon.img" :poke-height="pokemon.height" :poke-weight="pokemon.weight"/>
+      <pokeCard v-for="pokemon in pokemonCollection" 
+      :key="pokemon.id" 
+      :id="pokemon.id" 
+      :name="pokemon.name"
+      :primary-type="pokemon.type[0]" 
+      :secondary-type="pokemon.type[1]" 
+      :poke-image="pokemon.img" 
+      :poke-height="pokemon.height" 
+      :poke-weight="pokemon.weight"/>
     </div>
   </div>
 </template>

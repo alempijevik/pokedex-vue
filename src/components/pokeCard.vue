@@ -1,6 +1,7 @@
 <template>
-    <div class="col-lg-4">
-        <div class="card" @click='test'>
+    <div class="col-lg-3">
+        <!-- <div>{{ borderColor }}</div> -->
+            <div class="card" @click='test' :style="{borderImage: borderColor()}">
             <span class="poke_id">#{{ id }}</span>
             <span class="type_icon"><img :src="primaryTypeIcon" alt="Type"><img v-if="secondaryTypeIcon"
                     :src="secondaryTypeIcon" alt="Type"></span>
@@ -17,11 +18,11 @@
                         <h5 class="height">{{ pokeHeight }}</h5>
                     </div>
                 </div>
-                <div class="type_data"> <small> Type:</small>
-                    <h5 class="type">{{ primaryType }}<span v-if="secondaryType"> / {{ secondaryType }}</span></h5>
+                <div class="type_data">
+                    <h6 class="type"><small>Type:</small> {{ primaryType }}<span v-if="secondaryType"> / {{
+                            secondaryType }}</span></h6>
                 </div>
             </div>
-            <p>{{ primaryType }} {{ secondaryType }}</p>
             <img :src="pokeSprite" alt="Pokemon Sprite">
         </div>
     </div>
@@ -47,10 +48,42 @@
                 pokeSprite: `./images/sprites/${this.id}MS.png`,
                 primaryTypeIcon: `./images/types/${this.primaryType}.png`,
                 secondaryTypeIcon: this.secondaryType ? `./images/types/${this.secondaryType}.png` : '',
+                classType: this.secondaryType ? `${this.primaryType.toLowerCase()}_${this.secondaryType.toLowerCase()}` : this.primaryType.toLowerCase(),
+                typeColor: {
+                    'Bug': '#729f3f',
+                    'Dragon': '#53a4cf, #f16e57',
+                    'Fairy': '#fdb9e9',
+                    'Fire': '#fd7d24',
+                    'Ghost': '#7b62a3',
+                    'Ground': '#f7de3f, #ab9842',
+                    'Normal': '#a4acaf',
+                    'Psychic': '#f366b9',
+                    'Dark': '#707070',
+                    'Electric': '#eed535',
+                    'Fighting': '#d56723',
+                    'Flying': '#3dc7ef, #bdb9b8',
+                    'Grass': '#9bcc50',
+                    'Ice': '#51c4e7',
+                    'Poison': '#b97fc9',
+                    'Rock': '#a38c21',
+                    'Water': '#4592c4',
+                    'Steel': '#9eb7b8'
+                },
             };
         },
         methods: {
-
+            test () {
+                console.log(this.borderColor());
+            },
+            borderColor () {
+                let primaryColor = `${this.typeColor[this.primaryType]}`;
+                if (!this.typeColor[this.primaryType].split(',')[1] && !this.secondaryType) {
+                        primaryColor += `, ${this.typeColor[this.primaryType]}`;
+                }
+                let secondaryColor = this.secondaryType ? `, ${this.typeColor[this.secondaryType]}` : '';
+                let css = `linear-gradient(${primaryColor}${secondaryColor}) 50 space`;
+                return css;
+            }
         }
     }
 
@@ -59,6 +92,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .card {
+        border: 2.5px solid;
         background-color: rgb(54, 54, 54);
         background: linear-gradient(to bottom, rgb(43, 42, 42), rgb(27, 27, 27));
         border-radius: 10px;
@@ -108,8 +142,28 @@
         margin-top: 1.5rem;
         filter: saturate(130%) brightness(110%);
     }
-    
+
+    .name,
+    .extra_info,
+    .type_data {
+        width: 100%;
+    }
+
+    .extra_info {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
     small {
         opacity: 0.5;
     }
+
 </style>
