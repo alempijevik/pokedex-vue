@@ -45,7 +45,7 @@
         data() {
             return {
                 openInfo: false,
-                pokeSprite: `./images/sprites/${this.id}MS.png`,
+                pokeSprite: `./images/sprites/${this.name.toLowerCase()}.png`,
                 primaryTypeIcon: `./images/types/${this.primaryType}.png`,
                 secondaryTypeIcon: this.secondaryType ? `./images/types/${this.secondaryType}.png` : '',
                 classType: this.secondaryType ? `${this.primaryType.toLowerCase()}_${this.secondaryType.toLowerCase()}` : this.primaryType.toLowerCase(),
