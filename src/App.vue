@@ -1,7 +1,9 @@
 <template>
   <div class="container">
+    <h1 class="title mb-5 mt-3 text-center">Pokédex</h1>
+    <hr class="title_hr"/>
     <div class="row">
-      <pokeCard v-for="pokemon in pokemonCollection" 
+      <PokeCard v-for="pokemon in pokemonCollection" 
       :key="pokemon.id" 
       :id="pokemon.id" 
       :name="pokemon.name"
@@ -9,22 +11,31 @@
       :secondary-type="pokemon.type[1]" 
       :poke-image="pokemon.img" 
       :poke-height="pokemon.height" 
-      :poke-weight="pokemon.weight"/>
+      :poke-weight="pokemon.weight"
+      @toggle-info="toggleInfo"/>
     </div>
   </div>
+  <PokeInfo
+   v-if="openInfo"
+   @toggle-info="toggleInfo"
+   :pokemon="currentPokemon"/>
 </template>
 
 <script>
-  import pokeCard from './components/pokeCard.vue'
+  import PokeCard from './components/PokeCard.vue'
+  import PokeInfo from './components/PokeInfo.vue'
 
   export default {
     name: 'App',
     components: {
-      pokeCard
+      PokeCard,
+      PokeInfo
     },
     data() {
       return {
-        pokemonCollection: []
+        pokemonCollection: [],
+        openInfo: false,
+        currentPokemon: {}
       }
     },
     methods: {
@@ -38,6 +49,17 @@
           .then(pokeData => {
             this.pokemonCollection = pokeData;
           })
+      },
+      toggleInfo (pokeId) {
+        this.openInfo = !this.openInfo;
+        if (this.openInfo) {
+          this.currentPokemon = this.pokemonCollection.find(pokemon => pokemon.id === pokeId)
+          console.log(this.currentPokemon);
+          setTimeout(() => {
+            let animation = document.querySelector('.center-on-page');
+            animation.style.display = 'none';
+          }, 3100);
+        }
       }
     },
     beforeMount() {
@@ -47,5 +69,25 @@
 </script>
 
 <style>
+.title {
+  /* color: #FECC00; */
+  color: white;
+  font-size: 5em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 10px #375CAA,
+                0 0 20px #375CAA,
+                0 0 40px #375CAA,
+                0 0 80px #375CAA,
+                0 0 1200px #375CAA;
+}
 
+.hr_title {
+  box-shadow: 0 0 10px #375CAA,
+                0 0 20px #375CAA,
+                0 0 40px #375CAA,
+                0 0 80px #375CAA,
+                0 0 1200px #375CAA;
+  background-color: white;
+}
 </style>

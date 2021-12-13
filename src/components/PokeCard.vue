@@ -1,31 +1,34 @@
 <template>
     <div class="col-lg-3">
-        <!-- <div>{{ borderColor }}</div> -->
-            <div class="card" @click='test' :style="{borderImage: borderColor()}">
+            <div class="card" @click='toggleInfo' :style="{borderImage: borderColor()}">
             <span class="poke_id">#{{ id }}</span>
-            <span class="type_icon"><img :src="primaryTypeIcon" alt="Type"><img v-if="secondaryTypeIcon"
-                    :src="secondaryTypeIcon" alt="Type"></span>
+            <span class="type_icon">
+                <img class="poke_type_icon" :src="primaryTypeIcon" alt="Type" loading="lazy" :style="{boxShadow: boxColor(primaryType)}">
+                <img class="poke_type_icon" v-if="secondaryTypeIcon" :src="secondaryTypeIcon" alt="Type" loading="lazy" :style="{boxShadow: boxColor(secondaryType )}">
+            </span>
             <div class="image_wrapper">
-                <img class="poke_image" :src="pokeImage" alt="Pokemon Image">
+                <img class="poke_image" :src="pokeImage" alt="Pokemon Image" loading="lazy">
             </div>
             <div class="info">
                 <h3 class="name">{{ name }}</h3>
                 <div class="extra_info">
-                    <div> <small> Weight</small>
+                    <div>
+                        <small> Weight</small>
                         <h5 class="weight">{{ pokeWeight }}</h5>
                     </div>
-                    <div> <small> Height</small>
+                    <div>
+                        <small> Height</small>
                         <h5 class="height">{{ pokeHeight }}</h5>
                     </div>
                 </div>
                 <div class="type_data">
-                    <h6 class="type"><small>Type:</small> {{ primaryType }}<span v-if="secondaryType"> / {{
-                            secondaryType }}</span></h6>
+                    <h6 class="type"><small>Type:</small> {{ primaryType }}<span v-if="secondaryType"> / {{secondaryType }}</span></h6>
                 </div>
             </div>
-            <img :src="pokeSprite" alt="Pokemon Sprite">
+            <img v-if="false" :src="pokeSprite" alt="Pokemon Sprite">
         </div>
     </div>
+
 </template>
 
 <script>
@@ -44,7 +47,6 @@
         },
         data() {
             return {
-                openInfo: false,
                 pokeSprite: `./images/sprites/${this.name.toLowerCase()}.png`,
                 primaryTypeIcon: `./images/types/${this.primaryType}.png`,
                 secondaryTypeIcon: this.secondaryType ? `./images/types/${this.secondaryType}.png` : '',
@@ -73,7 +75,10 @@
         },
         methods: {
             test () {
-                console.log(this.borderColor());
+                
+            },
+            toggleInfo () {
+                this.$emit('toggle-info', this.id);
             },
             borderColor () {
                 let primaryColor = `${this.typeColor[this.primaryType]}`;
@@ -82,6 +87,26 @@
                 }
                 let secondaryColor = this.secondaryType ? `, ${this.typeColor[this.secondaryType]}` : '';
                 let css = `linear-gradient(${primaryColor}${secondaryColor}) 50 space`;
+                return css;
+            },
+            boxColor(type) {
+                let color = this.typeColor[type];
+                if (color.split(',')[1]) {
+                    switch (type) {
+                        case 'Flying':
+                            color = '#91ABDF';
+                            break;
+                        case 'Dragon':
+                            color = '#026DC1';
+                            break;
+                        case 'Ground':
+                            color = '#D88452';
+                            break;
+                        default:
+                                break;
+                            }
+                        }
+                let css = `0 0 10px ${color}`;
                 return css;
             }
         }
@@ -164,6 +189,10 @@
 
     small {
         opacity: 0.5;
+    }
+
+    .poke_type_icon {
+        border-radius: 50%;
     }
 
 </style>
