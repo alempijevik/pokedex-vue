@@ -2,10 +2,14 @@
 
     <div class="poke_info">
         <div class="poke_info_wrapper">
-            <div class="image_section text-center">
+            <div class="image_section text-center" :style="{ backgroundColor: generateBackground() }">
+                <div class="info_background"></div>
                 <img :src="pokemon.img" alt="Pokemon Image">
             </div>
-            <div @click="toggleInfo" class="closeBtn">X</div>
+            <div class="close_btn_wrapper" @click="toggleInfo">
+                <img src="../../public/images/arrow-left-solid.svg" class="close_btn" />
+                <h2 class="close_label">Pokédex</h2>
+            </div>
             <h1>{{ pokemon.name }}</h1>
         </div>
         <div class="center-on-page">
@@ -63,6 +67,10 @@
                 let css = `radial-gradient(circle ${primaryColor} ${secondaryColor})`;
                 console.log(css);
                 return css;
+            },
+            generateBackground () {
+                let color = this.typeColor[this.primaryType].split(',')[1] ? this.typeColor[this.primaryType].split(',')[0] : this.typeColor[this.primaryType];
+                return color;
             },
             getPercentage (statNum, statName) {
                 let max = 0;
@@ -128,7 +136,7 @@
     z-index: 10;
     width: 100%;
     height: 100%;
-    background-color: #16141b;
+    background-color: #232222;
 }
 
 .poke_info_wrapper {
@@ -136,6 +144,34 @@
     width: 100%;
     transform: scale(0);
     animation: info_scale 1s forwards 3s;
+}
+
+.image_section {
+    background-image: url('../../public/images/pokeball.svg');
+    background-position: center;
+    background-size: cover;
+    border-radius: 0 0 50px 50px;
+}
+
+.close_btn_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: white;
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.close_label {
+    margin: 0;
+}
+
+.close_btn {
+    width: 20px;
+    margin: 10px;
+    filter: invert(1);
 }
 
 @keyframes info_scale {
