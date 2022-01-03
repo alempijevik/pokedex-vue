@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="{'active': openInfo}">
     <h1 class="title mb-5 mt-3 text-center">Pokédex</h1>
     <hr class="title_hr"/>
     <div class="row">
@@ -69,6 +69,9 @@
 </script>
 
 <style>
+.active {
+  display: none;
+}
 .title {
   /* color: #FECC00; */
   color: white;

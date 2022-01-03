@@ -10,7 +10,17 @@
                 <img src="../../public/images/arrow-left-solid.svg" class="close_btn" />
                 <h2 class="close_label">Pokédex</h2>
             </div>
-            <h1>{{ pokemon.name }}</h1>
+            <h1 class="text-center">{{ pokemon.name }}</h1>
+            <div class="row">
+                <div class="col-lg-4">
+                    <StatBar v-for="(stat, val) in pokemon.stats"
+                    :stat="stat" 
+                    :statName="val"
+                    :key='stat'
+                    />
+                </div>
+                <div class="col-lg-6"></div>
+            </div>
         </div>
         <div class="center-on-page">
             <div class="pokeball">
@@ -23,8 +33,12 @@
 </template>
 
 <script>
+  import StatBar from './StatBar.vue'
 
     export default {
+        components: {
+            StatBar
+        },
         props: {
             pokemon: Object
         },
@@ -72,36 +86,6 @@
                 let color = this.typeColor[this.primaryType].split(',')[1] ? this.typeColor[this.primaryType].split(',')[0] : this.typeColor[this.primaryType];
                 return color;
             },
-            getPercentage (statNum, statName) {
-                let max = 0;
-                switch (statName) {
-                    case 'hp':
-                        max = 255;
-                        break;
-                    case 'attack':
-                        max = 190;
-                        break;
-                    case 'defense':
-                        max = 230;
-                        break;
-                    case 'sp.atk':
-                        max = 194;
-                        break;
-                    case 'sp.def':
-                        max = 230;
-                        break;
-                    case 'speed':
-                        max = 200;
-                        break;
-                    case 'total':
-                        max = 720;
-                        break;
-                    default:
-                        break;
-                }
-                let result = (statNum * 100) / max;
-                return result.toString() + '%'
-            },
             boxColor(type) {
                 let color = this.typeColor[type];
                 if (color.split(',')[1]) {
@@ -137,6 +121,10 @@
     width: 100%;
     height: 100%;
     background-color: #232222;
+    color:  white;
+    overflow-x: hidden;
+    overflow-y: auto;
+
 }
 
 .poke_info_wrapper {
@@ -175,9 +163,9 @@
 }
 
 @keyframes info_scale {
-  0% { transform: scale(0) }
   100% { transform: scale(1) }
 }
+
     /*LOADING ANIMATION */
 
 .center-on-page *,

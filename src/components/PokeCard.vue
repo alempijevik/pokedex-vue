@@ -13,11 +13,11 @@
                 <h3 class="name">{{ name }}</h3>
                 <div class="extra_info">
                     <div>
-                        <small> Weight</small>
+                        <small>Weight</small>
                         <h5 class="weight">{{ pokeWeight }}</h5>
                     </div>
                     <div>
-                        <small> Height</small>
+                        <small>Height</small>
                         <h5 class="height">{{ pokeHeight }}</h5>
                     </div>
                 </div>
@@ -130,6 +130,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     }
 
     .poke_id {
