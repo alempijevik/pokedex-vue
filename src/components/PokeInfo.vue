@@ -1,26 +1,32 @@
 <template>
-
     <div class="poke_info">
         <div class="poke_info_wrapper">
             <div class="image_section text-center" :style="{ backgroundColor: generateBackground() }">
-                <div class="info_background"></div>
-                <img :src="pokemon.img" alt="Pokemon Image">
-            </div>
-            <div class="close_btn_wrapper" @click="toggleInfo">
-                <img src="../../public/images/arrow-left-solid.svg" class="close_btn" />
-                <h2 class="close_label">Pokédex</h2>
-            </div>
-            <h1 class="text-center">{{ pokemon.name }}</h1>
-            <div class="row">
-                <div class="col-lg-4">
-                    <StatBar v-for="(stat, val) in pokemon.stats"
-                    :stat="stat" 
-                    :statName="val"
-                    :key='stat'
-                    />
+                <div class="poke_info_header">
+                   <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="close_btn_wrapper" @click="toggleInfo">
+                                    <img src="../../public/images/arrow-left-solid.svg" class="close_btn" />
+                                    <h2 class="close_label">Pokédex</h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <h1 class="pokemon_info_name" :style="{ textShadow: '0px 0px 10px' + generateBackground() }">{{ pokemon.name }}</h1>
+                            </div>
+                            <div class="col-lg-4 d-flex justify-content-end">
+                                <div class="pokemon_info_id"><span>#{{ pokemon.id }}</span></div>
+                            </div>
+                        </div>
+                   </div>
                 </div>
-                <div class="col-lg-6"></div>
+                <img class="poke_info_img" :src="pokemon.img" alt="Pokemon Image">
             </div>
+            <div class="basic_info">
+            </div>
+            <StatTab 
+                :pokeStats="statTabResources"
+            />
         </div>
         <div class="center-on-page">
             <div class="pokeball">
@@ -28,22 +34,29 @@
             </div>
         </div>
     </div>
-
-
 </template>
 
 <script>
-  import StatBar from './StatBar.vue'
+  import StatTab from './StatTab.vue'
 
     export default {
         components: {
-            StatBar
+            StatTab
         },
         props: {
             pokemon: Object
         },
         data() {
+            const { stats, height, weight, species, abilities, type } = this.pokemon
             return {
+                statTabResources: {
+                    stats,
+                    height, 
+                    weight,
+                    species,
+                    abilities,
+                    type 
+                },
                 primaryType: this.pokemon.type[0],
                 secondaryType: this.pokemon.type[1] ? this.pokemon.type[1]: '',
                 typeColor: {
@@ -134,22 +147,75 @@
     animation: info_scale 1s forwards 3s;
 }
 
+.poke_info_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+}
+
 .image_section {
     background-image: url('../../public/images/pokeball.svg');
     background-position: center;
     background-size: cover;
-    border-radius: 0 0 50px 50px;
+    border-radius: 0 0 50% 50%;
+    padding-top: 50px;
+    position: relative;
+}
+
+.pokemon_info_name {
+    /* margin: 10px; */
+    position: relative;
+    z-index: 4;
+    padding: 10px;
+    border-radius: 0 0 50% 50%;
+    background-color: #232222;
+    box-shadow: 0px 10px 10px black;
+}
+
+.poke_info_img {
+    position: relative;
+    z-index: 3;
+    max-width: 100%;
+}
+
+.image_section::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #232222;
+    bottom: -50%;
+    border-radius: 50% 50% 0 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+.pokemon_info_id {
+    background-color: #232222;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 15px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 40px;
+    position: relative;
+    z-index: 4;
+    font-weight: bold;
 }
 
 .close_btn_wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
     color: white;
     display: flex;
     margin: 10px;
     align-items: center;
     cursor: pointer;
+    width: 20%;
 }
 
 .close_label {

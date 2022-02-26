@@ -80,6 +80,7 @@
     border-radius: 20px;
     border: 2px solid #555;
     position: relative;
+    box-shadow: 0 10px 10px black;
 }
 
 .stat {
@@ -97,6 +98,7 @@
 
 .poke_info_stats {
     padding: 20px;
+    width: 50%;
 }
 
 .stat_label {
@@ -105,6 +107,10 @@
     left: 20px;
     background-color: #232222;
     padding: 0px 4px;
+}
+
+.poke_info_stats:last-of-type {
+    width: 100%;
 }
 
 .hp,
