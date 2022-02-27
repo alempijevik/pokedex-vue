@@ -59,66 +59,17 @@
                 },
                 primaryType: this.pokemon.type[0],
                 secondaryType: this.pokemon.type[1] ? this.pokemon.type[1]: '',
-                typeColor: {
-                    'Bug': '#729f3f',
-                    'Dragon': '#53a4cf, #f16e57',
-                    'Fairy': '#fdb9e9',
-                    'Fire': '#fd7d24',
-                    'Ghost': '#7b62a3',
-                    'Ground': '#f7de3f, #ab9842',
-                    'Normal': '#a4acaf',
-                    'Psychic': '#f366b9',
-                    'Dark': '#707070',
-                    'Electric': '#eed535',
-                    'Fighting': '#d56723',
-                    'Flying': '#3dc7ef, #bdb9b8',
-                    'Grass': '#9bcc50',
-                    'Ice': '#51c4e7',
-                    'Poison': '#b97fc9',
-                    'Rock': '#a38c21',
-                    'Water': '#4592c4',
-                    'Steel': '#9eb7b8'
-                },
+                typeColor: this.$store.state.typeColor
             };
         },
         methods: {
             toggleInfo () {
                 this.$emit('toggle-info');
             },
-            borderColor () {
-                let primaryColor = `${this.typeColor[this.primaryType]}`;
-                if (!this.typeColor[this.primaryType].split(',')[1] && !this.secondaryType) {
-                        primaryColor += `, ${this.typeColor[this.primaryType]}`;
-                }
-                let secondaryColor = this.secondaryType ? `, ${this.typeColor[this.secondaryType]}` : '';
-                let css = `radial-gradient(circle ${primaryColor} ${secondaryColor})`;
-                console.log(css);
-                return css;
-            },
             generateBackground () {
                 let color = this.typeColor[this.primaryType].split(',')[1] ? this.typeColor[this.primaryType].split(',')[0] : this.typeColor[this.primaryType];
                 return color;
             },
-            boxColor(type) {
-                let color = this.typeColor[type];
-                if (color.split(',')[1]) {
-                    switch (type) {
-                        case 'Flying':
-                            color = '#91ABDF';
-                            break;
-                        case 'Dragon':
-                            color = '#026DC1';
-                            break;
-                        case 'Ground':
-                            color = '#D88452';
-                            break;
-                        default:
-                                break;
-                            }
-                        }
-                let css = `0 0 100px ${color}`;
-                return css;
-            }
         }
     }
     

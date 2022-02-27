@@ -1,24 +1,24 @@
 <template>
     <div class="col-lg-3">
             <div class="card" @click='toggleInfo' :style="{borderImage: borderColor()}">
-            <span class="poke_id">#{{ id }}</span>
+            <span class="poke_id">#{{ pokemon.id }}</span>
             <span class="type_icon">
                 <img class="poke_type_icon" :src="primaryTypeIcon" alt="Type" loading="lazy" :style="{boxShadow: boxColor(primaryType)}">
                 <img class="poke_type_icon" v-if="secondaryTypeIcon" :src="secondaryTypeIcon" alt="Type" loading="lazy" :style="{boxShadow: boxColor(secondaryType )}">
             </span>
             <div class="image_wrapper">
-                <img class="poke_image" :src="pokeImage" alt="Pokemon Image" loading="lazy">
+                <img class="poke_image" :src="pokemon.img" alt="Pokemon Image" loading="lazy">
             </div>
             <div class="info">
-                <h3 class="name">{{ name }}</h3>
+                <h3 class="name">{{ pokemon.name }}</h3>
                 <div class="extra_info">
                     <div>
                         <small>Weight</small>
-                        <h5 class="weight">{{ pokeWeight }}</h5>
+                        <h5 class="weight">{{ pokemon.weight }}</h5>
                     </div>
                     <div>
                         <small>Height</small>
-                        <h5 class="height">{{ pokeHeight }}</h5>
+                        <h5 class="height">{{ pokemon.height }}</h5>
                     </div>
                 </div>
                 <div class="type_data">
@@ -34,51 +34,25 @@
 <script>
     export default {
         props: {
-            id: String,
-            name: String,
-            pokeImage: String,
+            pokemon: Object,
             primaryType: String,
             secondaryType: {
                 type: String,
                 default: ''
             },
-            pokeWeight: String,
-            pokeHeight: String,
         },
         data() {
             return {
-                pokeSprite: `./images/sprites/${this.name.toLowerCase()}.png`,
+                pokeSprite: `./images/sprites/${this.pokemon.name.toLowerCase()}.png`,
                 primaryTypeIcon: `./images/types/${this.primaryType}.png`,
                 secondaryTypeIcon: this.secondaryType ? `./images/types/${this.secondaryType}.png` : '',
                 classType: this.secondaryType ? `${this.primaryType.toLowerCase()}_${this.secondaryType.toLowerCase()}` : this.primaryType.toLowerCase(),
-                typeColor: {
-                    'Bug': '#729f3f',
-                    'Dragon': '#53a4cf, #f16e57',
-                    'Fairy': '#fdb9e9',
-                    'Fire': '#fd7d24',
-                    'Ghost': '#7b62a3',
-                    'Ground': '#f7de3f, #ab9842',
-                    'Normal': '#a4acaf',
-                    'Psychic': '#f366b9',
-                    'Dark': '#707070',
-                    'Electric': '#eed535',
-                    'Fighting': '#d56723',
-                    'Flying': '#3dc7ef, #bdb9b8',
-                    'Grass': '#9bcc50',
-                    'Ice': '#51c4e7',
-                    'Poison': '#b97fc9',
-                    'Rock': '#a38c21',
-                    'Water': '#4592c4',
-                    'Steel': '#9eb7b8'
-                },
+                typeColor: this.$store.state.typeColor
             };
         },
         methods: {
-            test () {
-                
-            },
             toggleInfo () {
-                this.$emit('toggle-info', this.id);
+                this.$emit('toggle-info', this.pokemon.id);
             },
             borderColor () {
                 let primaryColor = `${this.typeColor[this.primaryType]}`;
@@ -120,7 +94,6 @@
         border: 2.5px solid;
         background-color: rgb(54, 54, 54);
         background: linear-gradient(to bottom, rgb(43, 42, 42), rgb(27, 27, 27));
-        border-radius: 10px;
         box-shadow: 0 3px 10px rgba(0, 0, 0, .6);
         margin: 0.8rem;
         padding: 1.4rem;
@@ -131,6 +104,14 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        transition: all .2s linear;
+    }
+
+    .card:hover {
+        opacity: 0.7;
+    }
+    .card:hover .image_wrapper {
+        background: linear-gradient(to bottom, rgba(214, 214, 214, 1), rgba(77, 77, 77, 0.5));
     }
 
     .poke_id {
@@ -161,6 +142,7 @@
         border-radius: 50%;
         width: 150px;
         height: 150px;
+        transition: all 2s linear;
     }
 
     .poke_image {

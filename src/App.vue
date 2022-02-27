@@ -1,17 +1,12 @@
 <template>
   <div class="container" :class="{'active': openInfo}">
     <h1 class="title mb-5 mt-3 text-center">Pokédex</h1>
-    <hr class="title_hr"/>
     <div class="row">
       <PokeCard v-for="pokemon in pokemonCollection" 
       :key="pokemon.id" 
-      :id="pokemon.id" 
-      :name="pokemon.name"
+      :pokemon="pokemon"
       :primary-type="pokemon.type[0]" 
       :secondary-type="pokemon.type[1]" 
-      :poke-image="pokemon.img" 
-      :poke-height="pokemon.height" 
-      :poke-weight="pokemon.weight"
       @toggle-info="toggleInfo"/>
     </div>
   </div>
@@ -83,14 +78,5 @@
                 0 0 40px #375CAA,
                 0 0 80px #375CAA,
                 0 0 1200px #375CAA;
-}
-
-.hr_title {
-  box-shadow: 0 0 10px #375CAA,
-                0 0 20px #375CAA,
-                0 0 40px #375CAA,
-                0 0 80px #375CAA,
-                0 0 1200px #375CAA;
-  background-color: white;
 }
 </style>

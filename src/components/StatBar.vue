@@ -17,6 +17,15 @@
         },
         data() {
             return {
+                maxStats: {
+                    "hp": 255,
+                    "attack": 190,
+                    "defense": 230,
+                    "sp.atk": 194,
+                    "sp.def": 230,
+                    "speed": 200,
+                    "total": 720
+                },
                 translation: {
                     "hp": 'Health',
                     "attack": 'Attack',
@@ -36,33 +45,7 @@
                 return name
             },
             getPercentage (statNum, statName) {
-                let max = 0;
-                switch (statName) {
-                    case 'hp':
-                        max = 255;
-                        break;
-                    case 'attack':
-                        max = 190;
-                        break;
-                    case 'defense':
-                        max = 230;
-                        break;
-                    case 'sp.atk':
-                        max = 194;
-                        break;
-                    case 'sp.def':
-                        max = 230;
-                        break;
-                    case 'speed':
-                        max = 200;
-                        break;
-                    case 'total':
-                        max = 720;
-                        break;
-                    default:
-                        break;
-                }
-                let result = (statNum * 100) / max;
+                let result = (statNum * 100) / this.maxStats[statName];
                 return result.toString() + '%'
             },
         }
