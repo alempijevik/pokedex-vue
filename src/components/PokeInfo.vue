@@ -1,7 +1,7 @@
 <template>
     <div class="poke_info">
         <div class="poke_info_wrapper">
-            <div class="image_section text-center" :style="{ backgroundColor: generateBackground() }">
+            <div class="image_section text-center mb-5" :style="{ backgroundColor: generateBackground() }">
                 <div class="poke_info_header">
                    <div class="container">
                         <div class="row">
@@ -12,7 +12,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <h1 class="pokemon_info_name" :style="{ textShadow: '0px 0px 10px' + generateBackground() }">{{ pokemon.name }}</h1>
+                                <h1 class="pokemon_info_name">{{ pokemon.name }}</h1>
                             </div>
                             <div class="col-lg-4 d-flex justify-content-end">
                                 <div class="pokemon_info_id"><span>#{{ pokemon.id }}</span></div>
@@ -110,19 +110,18 @@
     background-image: url('../../public/images/pokeball.svg');
     background-position: center;
     background-size: cover;
-    border-radius: 0 0 50% 50%;
+    border-radius: 0 0 150px 150px;
     padding-top: 50px;
     position: relative;
 }
 
 .pokemon_info_name {
-    /* margin: 10px; */
     position: relative;
     z-index: 4;
     padding: 10px;
-    border-radius: 0 0 50% 50%;
-    background-color: #232222;
-    box-shadow: 0px 10px 10px black;
+    border-radius: 0 0 20px 20px;
+    background-color: #333;
+    box-shadow: 2px 2px 10px black;
 }
 
 .poke_info_img {
@@ -131,21 +130,8 @@
     max-width: 100%;
 }
 
-.image_section::after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background: #232222;
-    bottom: -50%;
-    border-radius: 50% 50% 0 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-}
-
 .pokemon_info_id {
-    background-color: #232222;
+    background-color: #333;
     padding: 5px;
     font-size: 18px;
     border-radius: 15px;
@@ -267,4 +253,11 @@
   80% { top: -20px }
   100% { top: 0 }
 }
+
+@media screen and (max-width: 991px) {
+    .image_section {
+        border-radius: 0 0 15px 15px;
+    }
+}
+
 </style>

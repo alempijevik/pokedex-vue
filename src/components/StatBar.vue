@@ -39,14 +39,11 @@
         },
         methods: {
             generateFullStatName (name) {
-                if (name in this.translation) {
-                    return this.translation[name];
-                }
-                return name
+                return this.translation[name] ? this.translation[name] : name;
             },
             getPercentage (statNum, statName) {
                 let result = (statNum * 100) / this.maxStats[statName];
-                return result.toString() + '%'
+                return `${result}%`;
             },
         }
     }
@@ -63,7 +60,7 @@
     border-radius: 20px;
     border: 2px solid #555;
     position: relative;
-    box-shadow: 0 10px 10px black;
+    box-shadow: 2px 2px 10px black;
 }
 
 .stat {
@@ -155,6 +152,12 @@
 
 .total .stat {
     background-color: #663399;
+}
+
+@media screen and (max-width: 991px) {
+    .poke_info_stats {
+        width: 100%;
+    }
 }
 
 </style>

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="pokemon_stats_wrapper">
+                    <div class="pokemon_stats_wrapper mb-5">
                         <StatBar v-for="(stat, val) in pokeStats.stats"
                         :stat="stat" 
                         :statName="val"
@@ -34,7 +34,6 @@
                                 <small><strong>Type:</strong></small>
                                 <div v-for="pokeType in pokeStats.type" :key="pokeType" :class="pokeType" :style="{ background: generateBackground(pokeType) }" class="pokemon_type">{{ pokeType }}</div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -60,15 +59,9 @@
         },
         methods: {
             generateBackground (type) {
-                let css;
                 let color = this.typeColor[type];
-                if (color.split(',')[1]) {
-                    css = `linear-gradient(180deg,  ${color});`;
-                } else {
-                    css = `linear-gradient(180deg, ${color}, ${color});`;
-                }
-                console.log(css);
-                return css;
+                // return color.split(',')[1] ? `linear-gradient(${color})` : color;
+                return color.split(',')[1] ? `linear-gradient(${color.split(',')[0]} 30%,${color.split(',')[1]} 70%)` : color;
             },
         }
     }
@@ -101,7 +94,7 @@ small {
     border-radius: 20px;
     border: 2px solid #555;
     position: relative;
-    box-shadow: 0 10px 10px black;
+    box-shadow: 2px 2px 10px black;
     flex-wrap: wrap;
     padding: 10px;
 }
@@ -147,7 +140,5 @@ small {
     width: 100%;
     margin-bottom: 5px;
 }
-
-
 
 </style>

@@ -49,7 +49,7 @@
         this.openInfo = !this.openInfo;
         if (this.openInfo) {
           this.currentPokemon = this.pokemonCollection.find(pokemon => pokemon.id === pokeId)
-          console.log(this.currentPokemon);
+          // console.log(this.currentPokemon);
           setTimeout(() => {
             let animation = document.querySelector('.center-on-page');
             animation.style.display = 'none';
@@ -68,7 +68,6 @@
   display: none;
 }
 .title {
-  /* color: #FECC00; */
   color: white;
   font-size: 5em;
   font-weight: 600;
