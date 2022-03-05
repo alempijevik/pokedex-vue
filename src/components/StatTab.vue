@@ -70,10 +70,19 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.poke_stats_tab {
+    padding: 40px 0;
+}
+
 .pokemon_stats_wrapper {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;    
+    align-items: stretch;
+    height: 100%;
+    border: 2px solid #555;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 .pokemon_stat_2 {
@@ -89,14 +98,12 @@ small {
 .pokemon_stats_wrapper_2 {
     width: 100%;
     display: flex;
-    align-content: center;
     padding: 10px;
     border-radius: 20px;
     border: 2px solid #555;
     position: relative;
-    box-shadow: 2px 2px 10px black;
     flex-wrap: wrap;
-    padding: 10px;
+    height: 100%;
 }
 
 .pokemon_stat_2 div {
@@ -110,12 +117,14 @@ small {
     height: 100%;
     width: 100%;
     display: flex;
-    align-content: center;
+    align-items: stretch;
     justify-content: center;
     background: #333;
-    padding: 10px;
+    padding: 15px;
     border-radius: 15px;
     flex-wrap: wrap;
+    height: 100%;
+
 }
 
 .pokemon_type {

@@ -2,4 +2,5 @@
 body {
     background-color: #16141b;
     font-family: 'Montserrat', sans-serif;
+    user-select: none;
 }

@@ -1,28 +1,21 @@
 <template>
     <div class="poke_info">
         <div class="poke_info_wrapper">
-            <div class="image_section text-center mb-5" :style="{ backgroundColor: generateBackground() }">
+            <div class="image_section text-center" :style="{ backgroundColor: generateBackground() }">
                 <div class="poke_info_header">
-                   <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="close_btn_wrapper" @click="toggleInfo">
-                                    <img src="../../public/images/arrow-left-solid.svg" class="close_btn" />
-                                    <h2 class="close_label">Pokédex</h2>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <h1 class="pokemon_info_name">{{ pokemon.name }}</h1>
-                            </div>
-                            <div class="col-lg-4 d-flex justify-content-end">
-                                <div class="pokemon_info_id"><span>#{{ pokemon.id }}</span></div>
-                            </div>
-                        </div>
-                   </div>
+                    <div class="close_btn_wrapper" @click="toggleInfo">
+                        <img src="../../public/images/arrow-left-solid.svg" class="close_btn" />
+                        <h2 class="close_label">Pokédex</h2>
+                    </div>
+                    <div class="pokemon_info_id"><span>#{{ pokemon.id }}</span></div>
                 </div>
                 <img class="poke_info_img" :src="pokemon.img" alt="Pokemon Image">
+                <h1 class="pokemon_info_name">{{ pokemon.name }}</h1>
             </div>
-            <div class="basic_info">
+            <div class="stat_navigation">
+                <h2 class="stat_navigation_bar" :class="{ active: isActive }">Info</h2>
+                <h2 class="stat_navigation_bar">Evolution</h2>
+                <h2 class="stat_navigation_bar">Info</h2>
             </div>
             <StatTab 
                 :pokeStats="statTabResources"
@@ -59,7 +52,8 @@
                 },
                 primaryType: this.pokemon.type[0],
                 secondaryType: this.pokemon.type[1] ? this.pokemon.type[1]: '',
-                typeColor: this.$store.state.typeColor
+                typeColor: this.$store.state.typeColor,
+                isActive: true
             };
         },
         methods: {
@@ -110,18 +104,17 @@
     background-image: url('../../public/images/pokeball.svg');
     background-position: center;
     background-size: cover;
-    border-radius: 0 0 150px 150px;
-    padding-top: 50px;
     position: relative;
 }
 
 .pokemon_info_name {
-    position: relative;
-    z-index: 4;
     padding: 10px;
-    border-radius: 0 0 20px 20px;
     background-color: #333;
-    box-shadow: 2px 2px 10px black;
+    margin: 0;
+}
+
+.basic_info {
+    cursor: pointer;
 }
 
 .poke_info_img {
@@ -163,6 +156,19 @@
     width: 20px;
     margin: 10px;
     filter: invert(1);
+}
+
+.stat_navigation {
+    display: flex;
+}
+
+.stat_navigation_bar {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
 }
 
 @keyframes info_scale {
@@ -252,12 +258,6 @@
   60% { top: 0 }
   80% { top: -20px }
   100% { top: 0 }
-}
-
-@media screen and (max-width: 991px) {
-    .image_section {
-        border-radius: 0 0 15px 15px;
-    }
 }
 
 </style>

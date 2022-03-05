@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-3">
+    <div class="col-xl-3 col-lg-4">
             <div class="card" @click='toggleInfo' :style="{borderImage: borderColor()}">
             <span class="poke_id">#{{ pokemon.id }}</span>
             <span class="type_icon">

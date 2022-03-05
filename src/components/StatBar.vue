@@ -60,7 +60,6 @@
     border-radius: 20px;
     border: 2px solid #555;
     position: relative;
-    box-shadow: 2px 2px 10px black;
 }
 
 .stat {
@@ -77,8 +76,10 @@
 }
 
 .poke_info_stats {
-    padding: 20px;
+    padding: 10px;
     width: 50%;
+    align-items: center;
+    display: flex;
 }
 
 .stat_label {
